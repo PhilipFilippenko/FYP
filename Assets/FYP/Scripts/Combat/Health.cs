@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     public class Health : MonoBehaviour
     {

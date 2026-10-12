@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // one line of the history
     public class ActionRecord

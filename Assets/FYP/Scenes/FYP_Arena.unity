@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff92ea8ef68ffd041832fb1caa8106a3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.TelemetryRecorder
+  m_EditorClassIdentifier: FYP::FYP.TelemetryRecorder
   player: {fileID: 731343610}
   boss: {fileID: 381675215}
   attempts: {fileID: 329047247}
@@ -1194,7 +1194,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aae921505d630894bb36d681f33e2497, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.AttemptManager
+  m_EditorClassIdentifier: FYP::FYP.AttemptManager
   player: {fileID: 731343610}
   boss: {fileID: 381675213}
   restartDelay: 2
@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd7dd8f023e3271409ecc8000eabbaa1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.ActionPredictor
+  m_EditorClassIdentifier: FYP::FYP.ActionPredictor
   telemetry: {fileID: 329047246}
   attempts: {fileID: 329047247}
   boss: {fileID: 381675215}
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ad5c3e8c1a90514aa618f477273f782, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.BossBrain
+  m_EditorClassIdentifier: FYP::FYP.BossBrain
   mode: 0
   profile: {fileID: 11400000, guid: 110052860456ea846a01187a8d64d77f, type: 2}
   predictor: {fileID: 329047249}
@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d05673565e872bb468f6510e33083c22, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.Health
+  m_EditorClassIdentifier: FYP::FYP.Health
   maxHealth: 500
   currentHealth: 0
   invulnerable: 0
@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17c75cc8ef8f13648b6f2a8008994fbc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.DamageFeedback
+  m_EditorClassIdentifier: FYP::FYP.DamageFeedback
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashTime: 0.12
   numberHeight: 6
@@ -1425,7 +1425,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6901173c1f3afbd45afed71705212177, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.BossController
+  m_EditorClassIdentifier: FYP::FYP.BossController
   profile: {fileID: 11400000, guid: 110052860456ea846a01187a8d64d77f, type: 2}
   brain: {fileID: 329047250}
   player: {fileID: 731343610}
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd4639411d6659c4d81cb445744892d7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.BossVisuals
+  m_EditorClassIdentifier: FYP::FYP.BossVisuals
   telegraphMaterial: {fileID: 2100000, guid: b0915aa403337ae44b2822118bb0ce88, type: 2}
   windupColor: {r: 1, g: 0.55, b: 0.1, a: 1}
   activeColor: {r: 1, g: 0.1, b: 0.1, a: 1}
@@ -2268,7 +2268,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6d4f9b7e7532a1499d9859157fbabf9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.FYPPlayerController
+  m_EditorClassIdentifier: FYP::FYP.FYPPlayerController
   lockTarget: {fileID: 381675212}
   maxLockDistance: 60
   moveSpeed: 5
@@ -2319,7 +2319,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d05673565e872bb468f6510e33083c22, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.Health
+  m_EditorClassIdentifier: FYP::FYP.Health
   maxHealth: 100
   currentHealth: 0
   invulnerable: 0
@@ -2359,7 +2359,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17c75cc8ef8f13648b6f2a8008994fbc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.DamageFeedback
+  m_EditorClassIdentifier: FYP::FYP.DamageFeedback
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashTime: 0.12
   numberHeight: 2
@@ -2377,7 +2377,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dd82ab47dacca24d95c7c614ea0da74, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.PlayerCombatVisuals
+  m_EditorClassIdentifier: FYP::FYP.PlayerCombatVisuals
   hitSphereMaterial: {fileID: 2100000, guid: a6791cdd7b97c054b95efb069f4cfce2, type: 2}
   lightWindupColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   heavyWindupColor: {r: 1, g: 0.5, b: 0.1, a: 1}
@@ -6085,7 +6085,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27fe96a8608013d4ab5e2da3375d7f1f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.DebugOverlay
+  m_EditorClassIdentifier: FYP::FYP.DebugOverlay
   player: {fileID: 731343610}
   bossHealth: {fileID: 381675213}
   boss: {fileID: 381675215}
@@ -6568,7 +6568,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc0a0ab7e0ef53438651ae714f3fd07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.FYPLockOnCamera
+  m_EditorClassIdentifier: FYP::FYP.FYPLockOnCamera
   player: {fileID: 731343610}
   distance: 9
   height: 1.5

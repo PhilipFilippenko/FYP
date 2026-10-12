@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // test screens. left: attempt, player, last actions. right: what the boss knows and why it picked its attack.
     // F2 hides the boss panel, F3 turns prediction off for the test without it, F4 switches adaptive and fsm

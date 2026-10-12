@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // guesses what this player will do next. every table is kept twice: per action and per group
     //      chain: what the player does after their last action

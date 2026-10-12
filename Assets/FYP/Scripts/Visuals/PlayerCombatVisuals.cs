@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // player colors per phase and the hit sphere
     public class PlayerCombatVisuals : MonoBehaviour

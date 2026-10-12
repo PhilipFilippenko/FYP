@@ -1,4 +1,4 @@
-namespace WillingBlade.FYP
+namespace FYP
 {
     // all actions the boss can see. add new ones at the end
     public enum PlayerAction

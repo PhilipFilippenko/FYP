@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // boss colors per phase and the attack area drawn on the floor
     public class BossVisuals : MonoBehaviour

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // how well a boss attack punishes each player action: 0 = not at all, 1 = perfectly.
     // set once before playtests, never changed for one player

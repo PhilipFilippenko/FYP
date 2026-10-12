@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // adaptive boss or simple boss to compare with
     public enum BossMode

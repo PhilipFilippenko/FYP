@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // what the boss is doing
     public enum BossState

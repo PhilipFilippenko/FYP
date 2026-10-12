@@ -1,6 +1,6 @@
 {
-    "name": "WillingBlade.FYP",
-    "rootNamespace": "WillingBlade.FYP",
+    "name": "FYP",
+    "rootNamespace": "FYP",
     "references": [
         "Unity.InputSystem"
     ],

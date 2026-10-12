@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // phase of the current action
     public enum CombatState

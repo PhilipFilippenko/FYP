@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     public class FYPCamera : MonoBehaviour
     {

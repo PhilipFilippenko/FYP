@@ -1,4 +1,4 @@
-namespace WillingBlade.FYP
+namespace FYP
 {
     // a table that counts what the player did next. old counts slowly fade.
     // used twice: rows = last action (markov chain) and rows = boss attack (answers).

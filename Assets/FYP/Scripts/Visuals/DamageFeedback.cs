@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WillingBlade.FYP
+namespace FYP
 {
     // white flash and damage numbers on hit
     public class DamageFeedback : MonoBehaviour
