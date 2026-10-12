@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce09954fe669b0245821dec317733613, type: 3}
+  m_Name: Knell_BossProfile
+  m_EditorClassIdentifier: WillingBlade.FYP::WillingBlade.FYP.BossProfile
+  attacks:
+  - name: Slam
+    damage: 35
+    windup: 1
+    activeTime: 0.15
+    recovery: 1.2
+    innerRadius: 3
+    outerRadius: 10
+    halfAngle: 20
+    counters:
+      lightAttack: 0.6
+      heavyAttack: 0.8
+      dodgeLeft: 0.1
+      dodgeRight: 0.1
+      dodgeBack: 0.5
+      dodgeForward: 0.8
+      moveCloser: 1
+      moveAway: 0.3
+      useCover: 0.2
+  - name: Sweep
+    damage: 25
+    windup: 0.8
+    activeTime: 0.2
+    recovery: 1
+    innerRadius: 2
+    outerRadius: 9
+    halfAngle: 100
+    counters:
+      lightAttack: 0.5
+      heavyAttack: 0.5
+      dodgeLeft: 1
+      dodgeRight: 1
+      dodgeBack: 0.3
+      dodgeForward: 0.4
+      moveCloser: 0.5
+      moveAway: 0.2
+      useCover: 0.3
+  - name: Stomp
+    damage: 20
+    windup: 0.6
+    activeTime: 0.15
+    recovery: 0.9
+    innerRadius: 0
+    outerRadius: 5.5
+    halfAngle: 180
+    counters:
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 0.4
+      dodgeRight: 0.4
+      dodgeBack: 0.2
+      dodgeForward: 1
+      moveCloser: 0.6
+      moveAway: 0.1
+      useCover: 0.1
+  - name: Toll
+    damage: 20
+    windup: 1.2
+    activeTime: 0.2
+    recovery: 1.4
+    innerRadius: 9
+    outerRadius: 22
+    halfAngle: 180
+    counters:
+      lightAttack: 0
+      heavyAttack: 0
+      dodgeLeft: 0.3
+      dodgeRight: 0.3
+      dodgeBack: 0.8
+      dodgeForward: 0.1
+      moveCloser: 0.1
+      moveAway: 1
+      useCover: 0.6
+  walkSpeed: 3
+  turnSpeed: 90
+  windupTurnSpeed: 45
+  preferredDistance: 6
+  idleTime: 0.6
