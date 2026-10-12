@@ -77,7 +77,9 @@ namespace FYP
             return normalColor;
         }
 
-        // flat ring piece on the floor, facing forward like the boss
+        // Adapted from: Anthropic (2026) Claude [Large language model].
+        // Prompt: "floor flat ring sector mesh for boss attack indicator"
+        // Accessed: 5 October 2026. Modified by P. Filippenko.
         static Mesh BuildSectorMesh(float innerRadius, float outerRadius, float halfAngle)
         {
             int segments = 40;
@@ -90,7 +92,6 @@ namespace FYP
                 vertices[i * 2 + 1] = direction * outerRadius;
             }
 
-            // draw both sides, so the shape is visible from above and below
             int[] triangles = new int[segments * 12];
             for (int i = 0; i < segments; i++)
             {

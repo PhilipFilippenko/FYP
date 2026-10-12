@@ -1,3 +1,10 @@
+// AI assistance:
+//   The table rendering (DrawTable) and the layout of the GUI panels
+//   (spacing, sizes, colours) were developed with help from
+//   Anthropic (2026) Claude [Large language model].
+//   Available at: https://claude.ai (Accessed: 6 October 2026).
+//   The panel content, debug controls and overall logic are the author's own.
+
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;

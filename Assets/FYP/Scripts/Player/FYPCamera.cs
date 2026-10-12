@@ -17,7 +17,6 @@ namespace FYP
         [Header("Lock-on")]
         public float lockedPitch = 15f;
         public float lockTurnSpeed = 5f;
-        // look a bit higher so the big boss stays on screen
         public float lockLookHeight = 4f;
 
         [Header("When the player is hit")]
