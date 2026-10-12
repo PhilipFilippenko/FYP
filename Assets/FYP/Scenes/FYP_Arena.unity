@@ -2297,8 +2297,8 @@ MonoBehaviour:
     hitRadius: 1.5
   dodgeStaminaCost: 20
   dodgeDistance: 4
-  dodgeDuration: 0.35
-  dodgeInvulnerableTime: 0.25
+  dodgeDuration: 0.6
+  dodgeInvulnerableTime: 0.4
   stamina: 0
   isLockedOn: 0
   isSprinting: 0

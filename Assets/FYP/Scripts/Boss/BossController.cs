@@ -122,7 +122,8 @@ namespace FYP
             timer = 0;
             while (timer < attack.activeTime)
             {
-                if (!playerHit && IsPlayerInArea(attack))
+                // once the player dodged through this swing, it can not hit them later in the same swing
+                if (!playerHit && !playerDodged && IsPlayerInArea(attack))
                 {
                     // while dodging the player can not be hit, the attack goes through
                     if (player.health.invulnerable)
