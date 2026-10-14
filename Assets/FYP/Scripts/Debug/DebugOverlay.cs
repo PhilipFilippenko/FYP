@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 namespace FYP
 {
     // test screens. left: attempt, player, last actions. right: what the boss knows and why it picked its attack.
-    // F2 hides the boss panel, F3 turns prediction off for the test without it, F4 switches adaptive and fsm
+    // F2 hides the boss panel, F3 turns prediction off for the test without it, F4 switches the boss mode
     public class DebugOverlay : MonoBehaviour
     {
         public FYPPlayerController player;
@@ -51,8 +51,16 @@ namespace FYP
                 showBossPanel = !showBossPanel;
             if (Keyboard.current.f3Key.wasPressedThisFrame)
                 predictor.predictionEnabled = !predictor.predictionEnabled;
+            // F4 goes adaptive, frequency, static fsm, then back to adaptive
             if (Keyboard.current.f4Key.wasPressedThisFrame)
-                brain.mode = brain.mode == BossMode.Adaptive ? BossMode.StaticFSM : BossMode.Adaptive;
+            {
+                if (brain.mode == BossMode.Adaptive)
+                    brain.mode = BossMode.Frequency;
+                else if (brain.mode == BossMode.Frequency)
+                    brain.mode = BossMode.StaticFSM;
+                else
+                    brain.mode = BossMode.Adaptive;
+            }
         }
 
         // draw both panels
@@ -142,7 +150,7 @@ namespace FYP
             DrawTable(predictor.answers, attackNames, boss.currentAttack);
 
             GUILayout.Space(6);
-            GUILayout.Label("F2: hide   F3: prediction on/off   F4: adaptive / static FSM");
+            GUILayout.Label("F2: hide   F3: prediction on/off   F4: boss mode (adaptive / frequency / FSM)");
             GUILayout.EndArea();
         }
 

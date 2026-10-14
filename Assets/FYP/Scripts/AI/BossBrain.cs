@@ -4,15 +4,18 @@ using UnityEngine;
 
 namespace FYP
 {
-    // adaptive boss or simple boss to compare with
+    // adaptive boss or simpler bosses to compare with. new modes go at the end, the scene stores the number
     public enum BossMode
     {
         Adaptive,
-        StaticFSM
+        StaticFSM,
+        Frequency
     }
 
     // picks the next boss attack.
     // adaptive: score of an attack = how likely each answer is x how well the attack punishes it, added up.
+    // frequency: same scoring, but the guess is only how often each action happens, without the order.
+    // shows whether the markov sequence is what makes the difference.
     // static fsm: same attacks in a fixed order, does not look at the player. used to compare
     public class BossBrain : MonoBehaviour
     {
@@ -95,7 +98,7 @@ namespace FYP
             // score each attack by how this player usually answers it
             for (int i = 0; i < profile.attacks.Length; i++)
             {
-                float[] answer = predictor.GetAnswerPrediction(i);
+                float[] answer = GetGuess(i);
                 utilities[i] = 0;
                 for (int a = 0; a < answer.Length; a++)
                     utilities[i] += answer[a] * profile.attacks[i].counters.Get((PlayerAction)a);
@@ -133,6 +136,14 @@ namespace FYP
             return choice;
         }
 
+        // what the boss expects the player to do if it uses this attack
+        float[] GetGuess(int attackIndex)
+        {
+            if (mode == BossMode.Frequency)
+                return predictor.GetFrequencyPrediction();
+            return predictor.GetAnswerPrediction(attackIndex);
+        }
+
         // both guesses go to the log, so the report can compare them
         void LogDecision(float distance, float angle, int choice)
         {
@@ -141,14 +152,15 @@ namespace FYP
 
             float[] chain = predictor.GetPrediction();
             int predicted = ActionPredictor.MostLikely(chain);
-            float[] answer = predictor.GetAnswerPrediction(choice);
+            float[] answer = GetGuess(choice);
+            string source = mode == BossMode.Frequency && predictor.predictionEnabled ? "frequency" : predictor.GetAnswerSource(choice);
             int expected = ActionPredictor.MostLikely(answer);
 
             string line = telemetry.participantId + "," + attempts.attemptNumber + "," + TelemetryRecorder.ToText(attempts.GetTimeInAttempt())
                 + "," + mode + "," + predictor.predictionEnabled + "," + TelemetryRecorder.ToText(distance) + "," + TelemetryRecorder.ToText(angle)
                 + "," + (PlayerAction)predicted + "," + TelemetryRecorder.ToText(chain[predicted])
                 + "," + profile.attacks[choice].name + "," + lastReason
-                + "," + (PlayerAction)expected + "," + TelemetryRecorder.ToText(answer[expected]) + "," + predictor.GetAnswerSource(choice);
+                + "," + (PlayerAction)expected + "," + TelemetryRecorder.ToText(answer[expected]) + "," + source;
             foreach (float utility in utilities)
                 line += "," + TelemetryRecorder.ToText(utility);
             File.AppendAllText(decisionsFile, line + "\n");

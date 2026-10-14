@@ -132,6 +132,14 @@ namespace FYP
             return Blend(answers.Predict(attackIndex), answers.RowTotal(attackIndex), answersByCategory.Predict(attackIndex));
         }
 
+        // frequency boss: how often each action happens, ignoring the order of actions
+        public float[] GetFrequencyPrediction()
+        {
+            if (!predictionEnabled)
+                return Uniform();
+            return overall.Predict(0);
+        }
+
         // which table was used, for logs
         public string GetAnswerSource(int attackIndex)
         {
