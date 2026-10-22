@@ -2298,7 +2298,7 @@ MonoBehaviour:
   dodgeStaminaCost: 20
   dodgeDistance: 4
   dodgeDuration: 0.6
-  dodgeInvulnerableTime: 0.4
+  dodgeInvulnerableTime: 0.25
   stamina: 0
   isLockedOn: 0
   isSprinting: 0

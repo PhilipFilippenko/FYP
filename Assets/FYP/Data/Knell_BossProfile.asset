@@ -22,14 +22,14 @@ MonoBehaviour:
     outerRadius: 10
     halfAngle: 20
     counters:
-      lightAttack: 0.6
-      heavyAttack: 0.8
-      dodgeLeft: 0.1
-      dodgeRight: 0.1
-      dodgeBack: 0.5
-      dodgeForward: 0.8
-      moveCloser: 1
-      moveAway: 0.3
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 0.79
+      dodgeRight: 0.79
+      dodgeBack: 0.52
+      dodgeForward: 0.52
+      moveCloser: 0.6
+      moveAway: 0.6
       useCover: 0.2
   - name: Sweep
     damage: 25
@@ -40,14 +40,14 @@ MonoBehaviour:
     outerRadius: 9
     halfAngle: 100
     counters:
-      lightAttack: 0.5
-      heavyAttack: 0.5
-      dodgeLeft: 1
-      dodgeRight: 1
-      dodgeBack: 0.3
-      dodgeForward: 0.4
-      moveCloser: 0.5
-      moveAway: 0.2
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 0.98
+      dodgeRight: 0.98
+      dodgeBack: 0.65
+      dodgeForward: 0.65
+      moveCloser: 0.75
+      moveAway: 0.75
       useCover: 0.3
   - name: Stomp
     damage: 20
@@ -60,12 +60,12 @@ MonoBehaviour:
     counters:
       lightAttack: 1
       heavyAttack: 1
-      dodgeLeft: 0.4
-      dodgeRight: 0.4
-      dodgeBack: 0.2
-      dodgeForward: 1
-      moveCloser: 0.6
-      moveAway: 0.1
+      dodgeLeft: 0.57
+      dodgeRight: 0.57
+      dodgeBack: 0.35
+      dodgeForward: 0.57
+      moveCloser: 1
+      moveAway: 0.81
       useCover: 0.1
   - name: Toll
     damage: 20
@@ -76,14 +76,14 @@ MonoBehaviour:
     outerRadius: 22
     halfAngle: 180
     counters:
-      lightAttack: 0
-      heavyAttack: 0
-      dodgeLeft: 0.3
-      dodgeRight: 0.3
-      dodgeBack: 0.8
-      dodgeForward: 0.1
-      moveCloser: 0.1
-      moveAway: 1
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 1
+      dodgeRight: 1
+      dodgeBack: 0.75
+      dodgeForward: 0.75
+      moveCloser: 0.71
+      moveAway: 0.71
       useCover: 0.6
   walkSpeed: 3
   turnSpeed: 90

@@ -55,7 +55,7 @@ namespace FYP
         public float dodgeStaminaCost = 20f;
         public float dodgeDistance = 4f;
         public float dodgeDuration = 0.6f;
-        public float dodgeInvulnerableTime = 0.3f;
+        public float dodgeInvulnerableTime = 0.25f;
 
         [Header("State (read only)")]
         public float stamina;
