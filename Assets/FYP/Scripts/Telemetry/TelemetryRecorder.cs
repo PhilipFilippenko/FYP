@@ -76,6 +76,7 @@ namespace FYP
             player.GetComponent<Health>().onDamaged += OnPlayerDamaged;
             player.onAttackResolved += OnPlayerAttackResolved;
             boss.onAttackResolved += OnBossAttackResolved;
+            boss.onStaggered += OnBossStaggered;
             attempts.onAttemptStarted += OnAttemptStarted;
             attempts.onAttemptEnded += OnAttemptEnded;
 
@@ -245,6 +246,11 @@ namespace FYP
             else
                 bossMisses++;
             LogCombat("Boss", attackName, outcome, 0);
+        }
+
+        void OnBossStaggered()
+        {
+            LogCombat("Player", "Poise", "Stagger", 0);
         }
 
         // one line in combat csv

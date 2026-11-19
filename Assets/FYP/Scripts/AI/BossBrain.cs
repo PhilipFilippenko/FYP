@@ -74,13 +74,17 @@ namespace FYP
         }
 
         // angle: 0 = player in front, 180 = player right behind
-        bool CanReach(BossAttack attack, float distance, float angle)
+        public bool CanReach(BossAttack attack, float distance, float angle)
         {
+            if (attack.chainOnly)
+                return false;
             if (distance < attack.innerRadius || distance > attack.outerRadius)
                 return false;
-            if (attack.halfAngle >= 180)
+            if (attack.halfAngle >= 180 || attack.HalfRange() >= 180)
                 return true;
-            return angle <= attack.halfAngle - angleSafetyMargin;
+            float turn = profile.windupTurnSpeed * attack.windup;
+            float offAim = Mathf.Abs(Mathf.DeltaAngle(angle, attack.AimAngle())) - turn;
+            return offAim <= attack.HalfRange() - angleSafetyMargin;
         }
 
         // returns the chosen attack, or -1 if no attack can reach the player

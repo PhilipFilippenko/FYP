@@ -11,7 +11,12 @@ namespace FYP
         DodgeForward,
         MoveCloser,
         MoveAway,
-        UseCover
+        UseCover,
+        SprintAttack,
+        Kick,
+        Spell,
+        GroundSlam,
+        JumpAttack
     }
 
     // big groups of actions, used while there is not much data yet
@@ -40,6 +45,11 @@ namespace FYP
                 case PlayerAction.DodgeForward: return ActionCategory.Approach;
                 case PlayerAction.MoveCloser: return ActionCategory.Approach;
                 case PlayerAction.UseCover: return ActionCategory.Defend;
+                case PlayerAction.SprintAttack: return ActionCategory.Attack;
+                case PlayerAction.Kick: return ActionCategory.Attack;
+                case PlayerAction.Spell: return ActionCategory.Attack;
+                case PlayerAction.GroundSlam: return ActionCategory.Attack;
+                case PlayerAction.JumpAttack: return ActionCategory.Attack;
             }
             return ActionCategory.Defend;
         }

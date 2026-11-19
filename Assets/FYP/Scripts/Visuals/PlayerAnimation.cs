@@ -1,43 +1,43 @@
-// AI assistance:
-//   This script was written with help from
-//   Anthropic (2026) Claude [Large language model].
-//   Available at: https://claude.ai (Accessed: 18 November 2026).
-
 using UnityEngine;
 
 namespace FYP
 {
-    // plays the vessel model's clips from the player state. visual only: gameplay never reads it
     public class PlayerAnimation : MonoBehaviour
     {
         public Animator animator;
         public float fade = 0.12f;
+        public float attackToAttackFade = 0.15f;
 
         [Header("Locomotion (clip name and the speed it shows at 1x, m/s)")]
         public string idleClip = "idle";
         public string forwardClip = "run_fwd";
-        public float forwardClipSpeed = 4f;
+        public float forwardClipSpeed = 2.9f;
         public string backClip = "run_bkw";
-        public float backClipSpeed = 3f;
+        public float backClipSpeed = 2f;
         public string leftClip = "strafe_left";
         public string rightClip = "strafe_right";
-        public float strafeClipSpeed = 2.2f;
+        public float strafeClipSpeed = 1.85f;
 
-        [Header("Attacks: clip, hit frame (30 fps), playback speed")]
-        // light attacks in a row cycle through the three combo parts
-        public string[] lightClips = { "combo_1", "combo_2", "combo_3" };
-        public int[] lightHitFrames = { 25, 16, 17 };
-        public float lightSpeed = 1.5f;
-        public float comboWindow = 0.5f;
-        public string heavyClip = "slash_atk_2";
-        public int heavyHitFrame = 25;
-        public float heavySpeed = 1f;
+        [Header("Turning (clip and the degrees it turns, measured from the clips)")]
+        public string turnLeftClip = "turn_left";
+        public float turnLeftDegrees = -91f;
+        public string turnRightClip = "turn_right";
+        public float turnRightDegrees = 98f;
+        public string turn180Clip = "turn_180";
+        public float turn180Degrees = 189f;
+        public float turnClipSpeed = 1.2f;
+        public string runTurnClip = "run_turn_180";
+        public float runTurnDegrees = 182f;
+        public float runTurnClipSpeed = 1.6f;
+
+        [Header("Idle")]
+        public string[] idleVariants = { "idle_2", "idle_3" };
+        public float idleVariantAfter = 8f;
 
         [Header("Other")]
-        // the mixamo clips walk the hips forward; the controller already moves the body, so the hips stay over it
         public Transform hips;
         public string hitClip = "impact";
-        // the vessel has no death clip yet, so it falls back on the bigger impact and holds it
+        public string heavyHitClip = "impact_2";
         public string deathClip = "impact_2";
 
         FYPPlayerController player;
@@ -45,29 +45,41 @@ namespace FYP
         string current;
         Vector3 lastPosition;
         Vector3 velocity;
-        int lightIndex;
-        float lastAttackEnd = -10;
+        float lastYaw;
         bool wasBusy;
+        bool wasCharging;
         bool dodgeChosen;
         float oneShotUntil;
+        float attackClipEnd;
+        bool attackPlaying;
+        float idleSince;
+        int nextIdleVariant;
+        bool turning;
+        float turnStartYaw;
         Vector3 hipsRest;
+        string pending;
+        float pendingSince;
+        const float switchDelay = 0.15f;
 
-        // find links, subscribe
         void Awake()
         {
             player = GetComponent<FYPPlayerController>();
             health = GetComponent<Health>();
             player.onActionPerformed += OnAction;
-            health.onDamaged += OnDamaged;
+            player.onStunned += OnStunned;
             health.onDied += OnDied;
             lastPosition = transform.position;
+            lastYaw = transform.eulerAngles.y;
             if (hips != null)
                 hipsRest = hips.localPosition;
         }
 
-        // runs after the animator: keep the hips over the body, height and bob stay animated
         void LateUpdate()
         {
+            if (turning && Time.time >= oneShotUntil)
+                turning = false;
+            float modelYaw = turning ? Mathf.DeltaAngle(transform.eulerAngles.y, turnStartYaw) : 0;
+            animator.transform.localRotation = Quaternion.Euler(0, modelYaw, 0);
             if (hips == null)
                 return;
             Vector3 p = hips.localPosition;
@@ -76,22 +88,21 @@ namespace FYP
 
         void Update()
         {
-            // flat speed from how far the body moved, smoothed so steps do not flicker the clip
-            Vector3 step = (transform.position - lastPosition) / Mathf.Max(Time.deltaTime, 0.0001f);
+            float dt = Mathf.Max(Time.deltaTime, 0.0001f);
+            Vector3 step = (transform.position - lastPosition) / dt;
             step.y = 0;
-            // a new attempt teleports the body: not a real speed
             if (step.magnitude > 30)
                 step = Vector3.zero;
             velocity = Vector3.Lerp(velocity, step, 15 * Time.deltaTime);
             lastPosition = transform.position;
+            if (wasBusy && !player.isBusy)
+                velocity = Vector3.zero;
+            wasBusy = player.isBusy;
+            float previousYaw = lastYaw;
+            lastYaw = transform.eulerAngles.y;
 
             if (health.IsDead())
                 return;
-
-            // an attack or dodge just ended: start of the combo window
-            if (wasBusy && !player.isBusy)
-                lastAttackEnd = Time.time;
-            wasBusy = player.isBusy;
 
             if (player.state == CombatState.Dodge)
             {
@@ -102,69 +113,138 @@ namespace FYP
                 }
                 return;
             }
+            if (attackPlaying && player.currentAttack != null)
+            {
+                if (player.isCharging || player.inHitStop)
+                {
+                    animator.SetFloat("Speed", 0);
+                    attackClipEnd += Time.deltaTime;
+                    wasCharging = true;
+                }
+                else if (wasCharging)
+                {
+                    animator.SetFloat("Speed", player.currentAttack.speed);
+                    wasCharging = false;
+                }
+            }
             if (player.isBusy || Time.time < oneShotUntil)
+                return;
+
+            if (attackPlaying)
+            {
+                bool moving = velocity.magnitude >= 0.3f;
+                if (!moving && Time.time < attackClipEnd)
+                    return;
+                attackPlaying = false;
+                animator.SetFloat("Speed", 1);
+                animator.CrossFadeInFixedTime(moving ? ClipFor(transform.InverseTransformDirection(velocity)) : idleClip, moving ? 0.2f : 0.3f, 0, 0);
+                current = moving ? ClipFor(transform.InverseTransformDirection(velocity)) : idleClip;
+                pending = null;
+                idleSince = Time.time;
+                return;
+            }
+            if (StartTurnIfNeeded(step, previousYaw))
                 return;
             PlayLocomotion();
         }
 
-        // attack or dodge started
+        bool StartTurnIfNeeded(Vector3 step, float previousYaw)
+        {
+            Vector3 local = transform.InverseTransformDirection(step);
+            if (!player.isLockedOn && step.magnitude > 2f && local.z < -Mathf.Abs(local.x))
+            {
+                StartTurn(runTurnClip, runTurnClipSpeed, previousYaw);
+                return true;
+            }
+            if (player.isLockedOn && step.magnitude < 0.3f && player.lockTarget != null)
+            {
+                Vector3 toTarget = player.lockTarget.position - transform.position;
+                toTarget.y = 0;
+                float angle = Mathf.DeltaAngle(previousYaw, Quaternion.LookRotation(toTarget).eulerAngles.y);
+                if (Mathf.Abs(angle) > 135)
+                    StartTurn(turn180Clip, turnClipSpeed, previousYaw);
+                else if (angle < -60)
+                    StartTurn(turnLeftClip, turnClipSpeed, previousYaw);
+                else if (angle > 60)
+                    StartTurn(turnRightClip, turnClipSpeed, previousYaw);
+                else
+                    return false;
+                return true;
+            }
+            return false;
+        }
+
+        void StartTurn(string clip, float speed, float startYaw)
+        {
+            AnimationClip c = FindClip(clip);
+            animator.SetFloat("Speed", speed);
+            animator.CrossFadeInFixedTime(clip, 0.05f, 0, 0);
+            current = clip;
+            pending = null;
+            turning = true;
+            turnStartYaw = startYaw;
+            oneShotUntil = Time.time + (c != null ? c.length / speed : 0.5f);
+        }
+
         void OnAction(PlayerAction action)
         {
             oneShotUntil = 0;
-            if (action == PlayerAction.LightAttack)
+            AttackSettings attack = player.currentAttack;
+            if (attack == null)
             {
-                // next combo part if the last attack ended a moment ago
-                lightIndex = Time.time - lastAttackEnd < comboWindow ? (lightIndex + 1) % lightClips.Length : 0;
-                PlayAttack(lightClips[lightIndex], lightHitFrames[lightIndex], lightSpeed, player.lightAttack.windup);
-            }
-            else if (action == PlayerAction.HeavyAttack)
-            {
-                lightIndex = lightClips.Length - 1;
-                PlayAttack(heavyClip, heavyHitFrame, heavySpeed, player.heavyAttack.windup);
-            }
-            else
-            {
-                // dodge: the clip is picked on the first frame the body moves
                 dodgeChosen = false;
+                attackPlaying = false;
+                return;
             }
+            bool continues = attack.continuesPrevious && attackPlaying && Mathf.Abs(Time.time - attackClipEnd) < 0.1f;
+            float blend = continues ? 0.03f : attackPlaying ? attackToAttackFade : fade;
+            animator.SetFloat("Speed", attack.speed);
+            animator.CrossFadeInFixedTime(attack.clip, blend, 0, 0);
+            current = attack.clip;
+            pending = null;
+            attackPlaying = true;
+            AnimationClip c = FindClip(attack.clip);
+            attackClipEnd = Time.time + (c != null ? c.length / attack.speed : 0);
         }
 
-        // start the clip late enough that its hit frame lands when the windup ends
-        void PlayAttack(string clip, int hitFrame, float speed, float windup)
-        {
-            float startTime = Mathf.Max(0, (hitFrame - 1) / 30f - windup * speed);
-            animator.SetFloat("Speed", speed);
-            animator.CrossFadeInFixedTime(clip, fade, 0, startTime);
-            current = clip;
-        }
-
-        // side step or run clip squeezed into the dodge time
         void PlayDodge(Vector3 direction)
         {
             string clip = ClipFor(transform.InverseTransformDirection(direction));
             AnimationClip c = FindClip(clip);
             float speed = c != null ? c.length / player.dodgeDuration : 1;
             animator.SetFloat("Speed", speed);
-            animator.CrossFadeInFixedTime(clip, 0.05f, 0, 0);
+            animator.CrossFadeInFixedTime(clip, 0.1f, 0, 0);
             current = clip;
         }
 
-        // idle, run or strafe from the real speed and direction
         void PlayLocomotion()
         {
             float speed = velocity.magnitude;
             if (speed < 0.3f)
             {
+                if (current == idleClip && Time.time - idleSince > idleVariantAfter && idleVariants.Length > 0)
+                {
+                    string variant = idleVariants[nextIdleVariant % idleVariants.Length];
+                    nextIdleVariant++;
+                    AnimationClip c = FindClip(variant);
+                    animator.SetFloat("Speed", 1);
+                    animator.CrossFadeInFixedTime(variant, 0.4f, 0, 0);
+                    current = variant;
+                    oneShotUntil = Time.time + (c != null ? c.length : 3);
+                    idleSince = oneShotUntil;
+                    return;
+                }
                 SetClip(idleClip, 1);
                 return;
             }
+
+            idleSince = Time.time;
             Vector3 local = transform.InverseTransformDirection(velocity);
             string clip = ClipFor(local);
             float clipSpeed = clip == forwardClip ? forwardClipSpeed : clip == backClip ? backClipSpeed : strafeClipSpeed;
             SetClip(clip, speed / clipSpeed);
         }
 
-        // forward, back, left or right by the biggest part of the direction
         string ClipFor(Vector3 local)
         {
             if (Mathf.Abs(local.z) >= Mathf.Abs(local.x))
@@ -172,33 +252,51 @@ namespace FYP
             return local.x < 0 ? leftClip : rightClip;
         }
 
-        // flinch when standing or walking, attacks and dodges are not interrupted
-        void OnDamaged(float amount)
+        void OnStunned(float amount)
         {
-            if (health.IsDead() || player.isBusy)
+            if (health.IsDead())
                 return;
-            animator.SetFloat("Speed", 1);
-            animator.CrossFadeInFixedTime(hitClip, 0.05f, 0, 0);
-            current = hitClip;
-            oneShotUntil = Time.time + 0.45f;
+            bool heavy = amount >= player.heavyHitDamage;
+            string clip = heavy ? heavyHitClip : hitClip;
+            AnimationClip c = FindClip(clip);
+            float stun = heavy ? player.heavyHitStun : player.hitStun;
+            animator.SetFloat("Speed", c != null ? c.length / stun : 1);
+            animator.CrossFadeInFixedTime(clip, 0.05f, 0, 0);
+            current = clip;
+            attackPlaying = false;
+            oneShotUntil = Time.time + stun;
         }
 
-        // no death clip yet: play the big impact and hold its last pose
         void OnDied()
         {
             animator.SetFloat("Speed", 1);
             animator.CrossFadeInFixedTime(deathClip, 0.05f, 0, 0);
             current = deathClip;
+            attackPlaying = false;
         }
 
-        // crossfade only when the clip changes, speed always follows
         void SetClip(string clip, float speed)
         {
             animator.SetFloat("Speed", speed);
             if (clip == current)
+            {
+                pending = null;
                 return;
-            animator.CrossFadeInFixedTime(clip, fade, 0, 0);
+            }
+            if (clip != pending)
+            {
+                pending = clip;
+                pendingSince = Time.time;
+            }
+            bool fromLoop = current == idleClip || current == forwardClip || current == backClip || current == leftClip || current == rightClip
+                || current == turnLeftClip || current == turnRightClip;
+            if (fromLoop && Time.time - pendingSince < switchDelay)
+                return;
+            bool keepPhase = fromLoop && clip != idleClip && current != idleClip && current != turnLeftClip && current != turnRightClip;
+            float phase = keepPhase ? Mathf.Repeat(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, 1) : 0;
+            animator.CrossFade(clip, fade, 0, phase);
             current = clip;
+            pending = null;
         }
 
         AnimationClip FindClip(string clipName)

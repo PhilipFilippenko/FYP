@@ -14,67 +14,126 @@ MonoBehaviour:
   m_EditorClassIdentifier: FYP::FYP.BossProfile
   attacks:
   - name: Slam
+    clip: slam
+    kind: 0
     damage: 35
-    windup: 1
-    activeTime: 0.15
-    recovery: 1.2
+    windup: 1.1333
+    activeTime: 0.1
+    recovery: 1.1333
     innerRadius: 3
     outerRadius: 10
-    halfAngle: 20
+    halfAngle: 15
+    sweepFrom: -15
+    sweepTo: -15
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
     counters:
-      lightAttack: 1
+      lightAttack: 0.95
       heavyAttack: 1
-      dodgeLeft: 0.79
-      dodgeRight: 0.79
-      dodgeBack: 0.52
-      dodgeForward: 0.52
-      moveCloser: 0.6
-      moveAway: 0.6
+      dodgeLeft: 0.67
+      dodgeRight: 0.7
+      dodgeBack: 0.5
+      dodgeForward: 0.5
+      moveCloser: 0.51
+      moveAway: 0.51
       useCover: 0.2
+      sprintAttack: 0.79
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 0.84
   - name: Sweep
+    clip: sweep
+    kind: 0
     damage: 25
-    windup: 0.8
-    activeTime: 0.2
-    recovery: 1
+    windup: 0.5667
+    activeTime: 0.1667
+    recovery: 1.2333
     innerRadius: 2
     outerRadius: 9
-    halfAngle: 100
+    halfAngle: 30
+    sweepFrom: 106
+    sweepTo: -64
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
     counters:
       lightAttack: 1
       heavyAttack: 1
-      dodgeLeft: 0.98
-      dodgeRight: 0.98
-      dodgeBack: 0.65
-      dodgeForward: 0.65
-      moveCloser: 0.75
-      moveAway: 0.75
+      dodgeLeft: 0.55
+      dodgeRight: 0.55
+      dodgeBack: 0.43
+      dodgeForward: 0.6
+      moveCloser: 1
+      moveAway: 0.87
       useCover: 0.3
+      sprintAttack: 1
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
   - name: Stomp
+    clip: stomp
+    kind: 0
     damage: 20
-    windup: 0.6
-    activeTime: 0.15
-    recovery: 0.9
+    windup: 0.7
+    activeTime: 0.1
+    recovery: 0.8333
     innerRadius: 0
     outerRadius: 5.5
     halfAngle: 180
+    sweepFrom: 0
+    sweepTo: 0
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
     counters:
       lightAttack: 1
       heavyAttack: 1
-      dodgeLeft: 0.57
-      dodgeRight: 0.57
-      dodgeBack: 0.35
-      dodgeForward: 0.57
+      dodgeLeft: 0.86
+      dodgeRight: 0.86
+      dodgeBack: 0.37
+      dodgeForward: 0.86
       moveCloser: 1
-      moveAway: 0.81
+      moveAway: 0.64
       useCover: 0.1
+      sprintAttack: 1
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
   - name: Toll
+    clip: toll
+    kind: 0
     damage: 20
-    windup: 1.2
-    activeTime: 0.2
-    recovery: 1.4
+    windup: 1.3333
+    activeTime: 0.1
+    recovery: 1.3667
     innerRadius: 9
     outerRadius: 22
     halfAngle: 180
+    sweepFrom: 0
+    sweepTo: 0
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
     counters:
       lightAttack: 1
       heavyAttack: 1
@@ -82,11 +141,331 @@ MonoBehaviour:
       dodgeRight: 1
       dodgeBack: 0.75
       dodgeForward: 0.75
-      moveCloser: 0.71
-      moveAway: 0.71
+      moveCloser: 0.66
+      moveAway: 0.66
       useCover: 0.6
+      sprintAttack: 0.85
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 0.89
+  - name: Uppercut
+    clip: uppercut
+    kind: 0
+    damage: 30
+    windup: 0.4333
+    activeTime: 0.1333
+    recovery: 1.1333
+    innerRadius: 3
+    outerRadius: 10
+    halfAngle: 30
+    sweepFrom: 78
+    sweepTo: 21
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
+    counters:
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 0.32
+      dodgeRight: 0.24
+      dodgeBack: 0.27
+      dodgeForward: 0.27
+      moveCloser: 0.96
+      moveAway: 0.96
+      useCover: 0.3
+      sprintAttack: 1
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
+  - name: Thrust
+    clip: thrust
+    kind: 0
+    damage: 30
+    windup: 0.5333
+    activeTime: 0.1333
+    recovery: 0.9667
+    innerRadius: 3
+    outerRadius: 11
+    halfAngle: 12
+    sweepFrom: 15
+    sweepTo: -4
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
+    counters:
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 0.27
+      dodgeRight: 0.27
+      dodgeBack: 0.23
+      dodgeForward: 0.23
+      moveCloser: 0.94
+      moveAway: 0.94
+      useCover: 0.3
+      sprintAttack: 0.99
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
+  - name: Spin
+    clip: spin
+    kind: 0
+    damage: 25
+    windup: 0.6333
+    activeTime: 0.8
+    recovery: 0.8667
+    innerRadius: 2
+    outerRadius: 10
+    halfAngle: 30
+    sweepFrom: 60
+    sweepTo: -361
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
+    counters:
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 0.88
+      dodgeRight: 0.84
+      dodgeBack: 0.57
+      dodgeForward: 0.85
+      moveCloser: 1
+      moveAway: 0.77
+      useCover: 0.3
+      sprintAttack: 1
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
+  - name: Combo
+    clip: combo_1
+    kind: 0
+    damage: 15
+    windup: 0.3
+    activeTime: 0.1333
+    recovery: 1.2
+    innerRadius: 2
+    outerRadius: 9.5
+    halfAngle: 30
+    sweepFrom: 95
+    sweepTo: -64
+    chainOnly: 0
+    chainNext: 8
+    chainAt: 0.6333
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
+    counters:
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 0.49
+      dodgeRight: 0.49
+      dodgeBack: 0.49
+      dodgeForward: 0.49
+      moveCloser: 1
+      moveAway: 0.99
+      useCover: 0.3
+      sprintAttack: 1
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
+  - name: Combo2
+    clip: combo_2
+    kind: 0
+    damage: 15
+    windup: 0.3333
+    activeTime: 0.1333
+    recovery: 1.2333
+    innerRadius: 2
+    outerRadius: 9.5
+    halfAngle: 30
+    sweepFrom: -49
+    sweepTo: 98
+    chainOnly: 1
+    chainNext: 9
+    chainAt: 0.7
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
+    counters:
+      lightAttack: 0
+      heavyAttack: 0
+      dodgeLeft: 0
+      dodgeRight: 0
+      dodgeBack: 0
+      dodgeForward: 0
+      moveCloser: 0
+      moveAway: 0
+      useCover: 0.3
+      sprintAttack: 0
+      kick: 0
+      spell: 0
+      groundSlam: 0
+      jumpAttack: 0
+  - name: Combo3
+    clip: combo_3
+    kind: 0
+    damage: 30
+    windup: 0.5667
+    activeTime: 0.1
+    recovery: 1.4333
+    innerRadius: 4
+    outerRadius: 11
+    halfAngle: 15
+    sweepFrom: -15
+    sweepTo: -15
+    chainOnly: 1
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
+    counters:
+      lightAttack: 0
+      heavyAttack: 0
+      dodgeLeft: 0
+      dodgeRight: 0
+      dodgeBack: 0
+      dodgeForward: 0
+      moveCloser: 0
+      moveAway: 0
+      useCover: 0.3
+      sprintAttack: 0
+      kick: 0
+      spell: 0
+      groundSlam: 0
+      jumpAttack: 0
+  - name: Throw
+    clip: throw
+    kind: 2
+    damage: 25
+    windup: 1.2333
+    activeTime: 0.1
+    recovery: 0.6333
+    innerRadius: 8
+    outerRadius: 30
+    halfAngle: 30
+    sweepFrom: 0
+    sweepTo: 0
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 28
+    spotRadius: 2.5
+    counters:
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 1
+      dodgeRight: 1
+      dodgeBack: 1
+      dodgeForward: 1
+      moveCloser: 0.62
+      moveAway: 0.22
+      useCover: 0.3
+      sprintAttack: 1
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
+  - name: LeapSlam
+    clip: leap_slam
+    kind: 1
+    damage: 40
+    windup: 2.5333
+    activeTime: 0.1
+    recovery: 1.4
+    innerRadius: 12
+    outerRadius: 30
+    halfAngle: 30
+    sweepFrom: 0
+    sweepTo: 0
+    chainOnly: 0
+    chainNext: -1
+    chainAt: 0
+    launchTime: 1.9333
+    landingReach: 8.6
+    rockSpeed: 0
+    spotRadius: 2.5
+    counters:
+      lightAttack: 1
+      heavyAttack: 1
+      dodgeLeft: 1
+      dodgeRight: 1
+      dodgeBack: 1
+      dodgeForward: 1
+      moveCloser: 0.45
+      moveAway: 0.33
+      useCover: 0.3
+      sprintAttack: 1
+      kick: 1
+      spell: 1
+      groundSlam: 1
+      jumpAttack: 1
+  - name: Roar
+    clip: roar
+    kind: 0
+    damage: 10
+    windup: 0.7667
+    activeTime: 0.1
+    recovery: 1.9667
+    innerRadius: 0
+    outerRadius: 7
+    halfAngle: 180
+    sweepFrom: 0
+    sweepTo: 0
+    chainOnly: 1
+    chainNext: -1
+    chainAt: 0
+    launchTime: 0
+    landingReach: 0
+    rockSpeed: 0
+    spotRadius: 0
+    counters:
+      lightAttack: 0
+      heavyAttack: 0
+      dodgeLeft: 0
+      dodgeRight: 0
+      dodgeBack: 0
+      dodgeForward: 0
+      moveCloser: 0
+      moveAway: 0
+      useCover: 0.3
+      sprintAttack: 0
+      kick: 0
+      spell: 0
+      groundSlam: 0
+      jumpAttack: 0
   walkSpeed: 3
   turnSpeed: 90
   windupTurnSpeed: 45
   preferredDistance: 6
   idleTime: 0.6
+  backOffDistance: 3
+  strafeSpeed: 1.5
+  poise: 100
+  poiseRegenDelay: 4
+  staggerTime: 3.7
+  roarAttack: 12
+  roarAtHealth: 0.5
+  wakeDistance: 25
+  introTime: 5.9667

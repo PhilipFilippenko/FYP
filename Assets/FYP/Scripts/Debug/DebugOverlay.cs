@@ -83,8 +83,10 @@ namespace FYP
 
             GUILayout.Label("Lock-on: " + (player.isLockedOn ? "ON" : "off"));
             GUILayout.Label("Player HP: " + player.health.currentHealth.ToString("0") + " / " + player.health.maxHealth);
-            GUILayout.Label("Stamina: " + player.stamina.ToString("0") + " / " + player.maxStamina + (player.isSprinting ? "  (sprint)" : ""));
+            GUILayout.Label("Stamina: " + player.stamina.ToString("0") + " / " + player.maxStamina + (player.isSprinting ? "  (sprint)" : "") + (player.isCharging ? "  (charging)" : ""));
+            GUILayout.Label("FP: " + player.focus.ToString("0") + " / " + player.maxFocus);
             GUILayout.Label("Boss HP: " + bossHealth.currentHealth.ToString("0") + " / " + bossHealth.maxHealth);
+            GUILayout.Label("Boss poise: " + boss.poise.ToString("0") + " / " + boss.profile.poise + "   " + boss.state);
 
             GUILayout.Space(6);
             GUILayout.Label("Participant " + telemetry.participantId + ", " + telemetry.history.Count + " actions recorded");
@@ -97,7 +99,8 @@ namespace FYP
             }
 
             GUILayout.Space(6);
-            GUILayout.Label("Shift: sprint   MMB: lock-on   R: restart   Esc: cursor");
+            GUILayout.Label("LMB light   RMB heavy (hold: charge)   F kick   Q spell   E slam");
+            GUILayout.Label("Shift: sprint   Space: dodge   MMB: lock-on   R: restart   Esc: cursor");
             GUILayout.EndArea();
         }
 

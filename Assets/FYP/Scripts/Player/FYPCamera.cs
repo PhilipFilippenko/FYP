@@ -8,7 +8,7 @@ namespace FYP
         public FYPPlayerController player;
 
         [Header("Orbit")]
-        public float distance = 9f;
+        public float distance = 5.5f;
         public float height = 1.5f;
         public float mouseSensitivity = 0.15f;
         public float minPitch = -20f;
