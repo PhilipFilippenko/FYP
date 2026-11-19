@@ -8,16 +8,18 @@ namespace FYP
         public FYPPlayerController player;
 
         [Header("Orbit")]
-        public float distance = 5.5f;
+        public float distance = 4.5f;
         public float height = 1.5f;
         public float mouseSensitivity = 0.15f;
         public float minPitch = -20f;
         public float maxPitch = 70f;
 
         [Header("Lock-on")]
-        public float lockedPitch = 15f;
+        public float lockedPitch = 8f;
         public float lockTurnSpeed = 5f;
-        public float lockLookHeight = 4f;
+        public float lockDistance = 6f;
+        public float lockPlayerScreenHeight = 0.22f;
+        public float lockSideOffset = 0.7f;
 
         [Header("When the player is hit")]
         public float shakeStrength = 0.4f;
@@ -27,6 +29,7 @@ namespace FYP
 
         float yaw;
         float pitch = 20f;
+        float currentDistance;
         float shakeTimer;
         float flashTimer;
 
@@ -34,6 +37,7 @@ namespace FYP
         void Start()
         {
             yaw = player.transform.eulerAngles.y;
+            currentDistance = distance;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             player.health.onDamaged += OnPlayerDamaged;
@@ -88,14 +92,18 @@ namespace FYP
                 pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
             }
 
-            transform.position = pivot - Quaternion.Euler(pitch, yaw, 0) * Vector3.forward * distance;
+            currentDistance = Mathf.Lerp(currentDistance, player.isLockedOn ? lockDistance : distance, lockTurnSpeed * Time.deltaTime);
+            transform.position = pivot - Quaternion.Euler(pitch, yaw, 0) * Vector3.forward * currentDistance;
 
             if (player.isLockedOn)
             {
-                Vector3 lookPoint = Vector3.Lerp(pivot, player.lockTarget.position, 0.35f);
-                if (lookPoint.y < lockLookHeight)
-                    lookPoint.y = lockLookHeight;
-                transform.LookAt(lookPoint);
+                transform.position += Quaternion.Euler(0, yaw, 0) * Vector3.right * lockSideOffset;
+                Vector3 aim = Vector3.Lerp(pivot, player.lockTarget.position, 0.35f) - transform.position;
+                aim.y = 0;
+                Vector3 toPlayer = player.transform.position - transform.position;
+                float down = Mathf.Atan2(-toPlayer.y, new Vector2(toPlayer.x, toPlayer.z).magnitude) * Mathf.Rad2Deg;
+                float raise = (0.5f - lockPlayerScreenHeight) * GetComponent<Camera>().fieldOfView;
+                transform.rotation = Quaternion.LookRotation(aim) * Quaternion.Euler(down - raise, 0, 0);
             }
             else
             {
